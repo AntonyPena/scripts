@@ -1,0 +1,7 @@
+# dispositivos ocultos
+$unknown_devs = Get-PnpDevice | Where-Object{$_.Status -eq 'Unknown'}
+
+# remove todos
+ForEach($dev in $unknown_devs){
+     pnputil /remove-device $dev.InstanceId
+}
