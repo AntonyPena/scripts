@@ -1,0 +1,55 @@
+Installing macOS on VirtualBox involves several steps. Below is a general guide to help you through the process. Please note that running macOS on non-Apple hardware may violate Apple's End User License Agreement (EULA), so proceed at your own risk.
+
+### Prerequisites:
+1. **VirtualBox**: Download and install the latest version of VirtualBox from the [official website](https://www.virtualbox.org/).
+2. **macOS Installer**: You will need a macOS installer (ISO or DMG file). This can be obtained from the Mac App Store if you have access to a Mac, or through other means (e.g., creating a bootable installer).
+3. **VirtualBox Extension Pack**: Download and install the VirtualBox Extension Pack from the [official website](https://www.virtualbox.org/).
+4. **Enough System Resources**: Ensure your host machine has sufficient resources (CPU, RAM, and disk space) to run a virtual machine.
+
+### Step 1: Create a New Virtual Machine
+1. Open VirtualBox and click on **New**.
+2. Name your virtual machine (e.g., "macOS"), set the type to **Mac OS X**, and the version to **macOS 10.13 High Sierra (64-bit)** or later, depending on your installer.
+3. Allocate at least **4GB of RAM** (more if possible) and create a virtual hard disk with at least **30GB of space**.
+
+### Step 2: Configure the Virtual Machine
+1. Select the newly created VM and click on **Settings**.
+2. Go to **System** > **Processor** and allocate at least **2 CPUs**.
+3. Go to **Display** > **Screen** and increase the **Video Memory** to at least **128MB**.
+4. Go to **Storage**, select the empty optical drive, and click on the disk icon to choose the macOS installer ISO/DMG file.
+5. Go to **USB**, enable **USB 2.0** or **USB 3.0** controller.
+
+### Step 3: Modify VM Settings via Command Line
+VirtualBox does not officially support macOS, so you need to tweak some settings using the command line.
+
+1. Open a terminal or command prompt.
+2. Navigate to the VirtualBox installation directory (e.g., `cd "C:\Program Files\Oracle\VirtualBox"` on Windows).
+3. Run the following commands (replace `YourVMName` with the name of your VM):
+
+   ```bash
+   VBoxManage modifyvm "YourVMName" --cpuidset 00000001 000106e5 00100800 0098e3fd bfebfbff
+   VBoxManage setextradata "YourVMName" "VBoxInternal/Devices/efi/0/Config/DmiSystemProduct" "iMac11,3"
+   VBoxManage setextradata "YourVMName" "VBoxInternal/Devices/efi/0/Config/DmiSystemVersion" "1.0"
+   VBoxManage setextradata "YourVMName" "VBoxInternal/Devices/efi/0/Config/DmiBoardProduct" "Iloveapple"
+   VBoxManage setextradata "YourVMName" "VBoxInternal/Devices/smc/0/Config/DeviceKey" "ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc"
+   VBoxManage setextradata "YourVMName" "VBoxInternal/Devices/smc/0/Config/GetKeyFromRealSMC" 1
+   ```
+
+### Step 4: Install macOS
+1. Start the virtual machine.
+2. The macOS installer should boot. Follow the on-screen instructions to install macOS.
+3. When prompted, select the virtual hard disk you created as the installation destination.
+4. Complete the installation process, which may take some time.
+
+### Step 5: Post-Installation
+1. After installation, you may need to install VirtualBox Guest Additions for better performance and features (though macOS support is limited).
+2. Adjust settings as needed (e.g., screen resolution, shared folders).
+
+### Troubleshooting:
+- **Stuck on Apple Logo**: Ensure you have allocated enough resources and followed all steps correctly.
+- **Installation Fails**: Verify the integrity of your macOS installer and ensure your VM settings are correct.
+
+### Important Notes:
+- Running macOS on non-Apple hardware may violate Apple's EULA.
+- Performance may not be optimal, as VirtualBox is not optimized for macOS.
+
+This guide is for educational purposes only. Always ensure you comply with software licensing agreements.
